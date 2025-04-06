@@ -62,6 +62,19 @@
     .age-details strong {
       color: #80deea;
     }
+    .note-section {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 0.9em;
+      color: #b2ebf2;
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .note-section a {
+      color: #80deea;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -92,12 +105,17 @@
         <p>Total Seconds: <span id="total-seconds">0</span></p>
       </div>
     </div>
+    <div class="note-section">
+      <p><strong>Note:</strong></p>
+      <p>This website was created for me by my pupil, whose name is Thura Ye Moe Thaung.</p>
+      <p>My Facebook account: <a href="https://www.facebook.com/profile.php?id=100010817761719" target="_blank">Facebook Profile</a></p>
+    </div>
   </div>
 
   <script>
     // === CHANGE NAME AND BIRTHDAY HERE ===
     const personName = "Thura Aung";
-    const birthdayString = "1995-10-13"; // yyyy-mm-dd
+    const birthdayString = "1995-10-13"; //YYYY-mm-dd
 
     function formatDate(date) {
       const dd = String(date.getDate()).padStart(2, '0');
