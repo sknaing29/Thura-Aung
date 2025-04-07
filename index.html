@@ -81,28 +81,28 @@
   <div class="container">
     <div class="profile-header">
       <div class="profile-info">
-        <h1 id="name">Hnin Htet Wai</h1>
-        <p id="dob"></p>
+        <h1 id="personNameDisplay">Person Name</h1>
+        <p id="dateOfBirthDisplay"></p>
       </div>
     </div>
 
     <div class="calculation-section">
       <div class="date-range">
-        <span id="start-date"></span>
+        <span id="startDateDisplay"></span>
         <span>→</span>
-        <span id="end-date"></span>
+        <span id="endDateDisplay"></span>
       </div>
 
       <div class="age-details">
-        <h2 id="name-age">Hnin Htet Wai</h2>
-        <p><strong><span id="years">0</span> years <span id="months">0</span> months <span id="days">0</span> days</strong></p>
-        <p>Total Years: <span id="total-years">0</span></p>
-        <p>Total Months: <span id="total-months">0</span></p>
-        <p>Total Weeks: <span id="total-weeks">0</span></p>
-        <p>Total Days: <span id="total-days">0</span></p>
-        <p>Total Hours: <span id="total-hours">0</span></p>
-        <p>Total Minutes: <span id="total-minutes">0</span></p>
-        <p>Total Seconds: <span id="total-seconds">0</span></p>
+        <h2 id="personNameAgeDisplay">Person Name</h2>
+        <p><strong><span id="yearsDisplay">0</span> years <span id="monthsDisplay">0</span> months <span id="daysDisplay">0</span> days</strong></p>
+        <p>Total Years: <span id="totalYearsDisplay">0</span></p>
+        <p>Total Months: <span id="totalMonthsDisplay">0</span></p>
+        <p>Total Weeks: <span id="totalWeeksDisplay">0</span></p>
+        <p>Total Days: <span id="totalDaysDisplay">0</span></p>
+        <p>Total Hours: <span id="totalHoursDisplay">0</span></p>
+        <p>Total Minutes: <span id="totalMinutesDisplay">0</span></p>
+        <p>Total Seconds: <span id="totalSecondsDisplay">0</span></p>
       </div>
     </div>
     <div class="note-section">
@@ -113,9 +113,8 @@
   </div>
 
   <script>
-    // === CHANGE NAME AND BIRTHDAY HERE ===
     const personName = "Thura Aung";
-    const birthdayString = "1995-10-13"; //YYYY-mm-dd
+    const birthdayString = "1995-10-13";
 
     function formatDate(date) {
       const dd = String(date.getDate()).padStart(2, '0');
@@ -156,19 +155,24 @@
       const zodiac = getZodiac(birthDate.getMonth(), birthDate.getDate());
       const currentDayName = getDayName(now);
 
-      document.getElementById("name").textContent = personName;
-      document.getElementById("name-age").textContent = personName;
-      document.getElementById("dob").textContent = `${formatDate(birthDate)} (${birthDayName}, ${zodiac})`;
-      document.getElementById("start-date").textContent = `${formatDate(birthDate)} (${birthDayName})`;
-      document.getElementById("end-date").textContent = `${formatDate(now)} (${currentDayName})`;
+      document.getElementById("personNameDisplay").textContent = personName;
+      document.getElementById("personNameAgeDisplay").textContent = personName;
+      document.getElementById("dateOfBirthDisplay").textContent = `${formatDate(birthDate)} (${birthDayName}, ${zodiac})`;
+      document.getElementById("startDateDisplay").textContent = `${formatDate(birthDate)} (${birthDayName})`;
+      document.getElementById("endDateDisplay").textContent = `${formatDate(now)} (${currentDayName})`;
 
       const diffInMilliseconds = now - birthDate;
       const totalDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
       const totalWeeks = Math.floor(totalDays / 7);
-      const totalMonths = (now.getFullYear() - birthDate.getFullYear()) * 12 + (now.getMonth() - birthDate.getMonth());
+
+      let totalMonths = ((now.getFullYear() - birthDate.getFullYear()) * 12) + (now.getMonth() - birthDate.getMonth());
+
+      if (now.getDate() < birthDate.getDate()) {
+        totalMonths--;
+      }
+
       const totalYears = now.getFullYear() - birthDate.getFullYear() - (now.getMonth() < birthDate.getMonth() || (now.getMonth() === birthDate.getMonth() && now.getDate() < birthDate.getDate()) ? 1 : 0);
 
-      // Calculate age in years, months, days
       let years = now.getFullYear() - birthDate.getFullYear();
       let months = now.getMonth() - birthDate.getMonth();
       let days = now.getDate() - birthDate.getDate();
@@ -183,17 +187,16 @@
         months += 12;
       }
 
-      // Update UI
-      document.getElementById("years").textContent = years;
-      document.getElementById("months").textContent = months;
-      document.getElementById("days").textContent = days;
-      document.getElementById("total-years").textContent = totalYears;
-      document.getElementById("total-months").textContent = totalMonths;
-      document.getElementById("total-weeks").textContent = totalWeeks;
-      document.getElementById("total-days").textContent = totalDays;
-      document.getElementById("total-hours").textContent = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
-      document.getElementById("total-minutes").textContent = Math.floor(diffInMilliseconds / (1000 * 60));
-      document.getElementById("total-seconds").textContent = Math.floor(diffInMilliseconds / 1000);
+      document.getElementById("yearsDisplay").textContent = years;
+      document.getElementById("monthsDisplay").textContent = months;
+      document.getElementById("daysDisplay").textContent = days;
+      document.getElementById("totalYearsDisplay").textContent = totalYears;
+      document.getElementById("totalMonthsDisplay").textContent = totalMonths;
+      document.getElementById("totalWeeksDisplay").textContent = totalWeeks;
+      document.getElementById("totalDaysDisplay").textContent = totalDays;
+      document.getElementById("totalHoursDisplay").textContent = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
+      document.getElementById("totalMinutesDisplay").textContent = Math.floor(diffInMilliseconds / (1000 * 60));
+      document.getElementById("totalSecondsDisplay").textContent = Math.floor(diffInMilliseconds / 1000);
     }
 
     calculateAll();
